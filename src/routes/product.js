@@ -1,12 +1,17 @@
 const express = require("express");
 const productHandler = require("../controllers/product.controller");
+const {checkAuthentication} = require("../middleware/checkAuthentication");
 
 const routes = express.Router();
 
-routes.post("/", productHandler.createProduct);
-routes.get("/", productHandler.getProducts);
-routes.get("/paginated", productHandler.getProductsPaginated);
-routes.get("/:productId", (req, res) => {
+routes.post("/", checkAuthentication, productHandler.createProduct);
+routes.get("/", checkAuthentication, productHandler.getProducts);
+routes.get(
+  "/paginated",
+  checkAuthentication,
+  productHandler.getProductsPaginated
+);
+routes.get("/:productId", checkAuthentication, (req, res) => {
   const productId = req.params.productId;
 });
 

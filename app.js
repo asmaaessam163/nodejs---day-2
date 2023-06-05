@@ -7,16 +7,11 @@ const adminRoutes = require("./src/routes/admin");
 const shopRoutes = require("./src/routes/shop");
 const path = require("path");
 const productRoutes = require("./src/routes/product");
-
+const userRoutes = require("./src/routes/user");
 const {initDB} = require("./src/adaptor/db-connection");
 
 app.set("view engine", "pug");
 app.set("views", "views");
-
-app.use((req, res, next) => {
-  console.log("Validation authentication");
-  next();
-});
 
 app.use(bodyParser.urlencoded());
 app.use(bodyParser.json());
@@ -43,6 +38,7 @@ initDB((err) => {
 app.use("/admin", adminRoutes.routes);
 app.use("/shop", shopRoutes.routes);
 app.use("/product", productRoutes);
+app.use("/user", userRoutes);
 
 // app.get("/add-product", adminRoutes.addNewProduct);
 
