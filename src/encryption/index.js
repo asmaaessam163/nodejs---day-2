@@ -1,4 +1,4 @@
-const crypto = require("node:crypto");
+const crypto = require("crypto");
 
 const iVector = "1234567891234561"; // 16
 //crypto.randomBytes(16).toString("hex")
