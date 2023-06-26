@@ -1,10 +1,10 @@
-const mongoose = require("mongoose");
-const uuid = require("uuid");
+import { v4 } from "uuid"
+import mongoose from 'mongoose'
 
 const userSchema = new mongoose.Schema(
   {
     userId: {
-      default: uuid.v4,
+      default: v4,
       unique: true,
       index: true,
       type: String,
@@ -37,4 +37,4 @@ const userSchema = new mongoose.Schema(
 
 const userModel = mongoose.model("User", userSchema, "userss");
 
-module.exports = userModel;
+export default userModel

@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const uuid = require("uuid");
+import { v4 } from "uuid"
+import mongoose from 'mongoose'
 
 const productSchema = new mongoose.Schema(
   {
@@ -7,15 +7,17 @@ const productSchema = new mongoose.Schema(
       type: String,
       unique: true,
       index: true,
-      default: uuid.v4,
+      default: v4,
       required: true,
     },
     name: {
       en: {
         type: String,
+        required: true
       },
       ar: {
         type: String,
+        required: true
       },
     },
     image: {
@@ -23,6 +25,7 @@ const productSchema = new mongoose.Schema(
     },
     price: {
       type: Number,
+      required: true
     },
     discount: {
       type: Number,
@@ -39,9 +42,12 @@ const productSchema = new mongoose.Schema(
     },
     totalCount: {
       type: Number,
+      required: true
     },
     avaliable: {
       type: Boolean,
+      default: true,
+      required: true
     },
   },
   {timestamps: {createdAt: true, updatedAt: true}}
@@ -49,4 +55,5 @@ const productSchema = new mongoose.Schema(
 
 const productModel = mongoose.model("Product", productSchema, "products");
 
-module.exports = productModel;
+export default productModel;
+

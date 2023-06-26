@@ -1,13 +1,14 @@
-const productService = require("../services/product.service");
+import { type Request, type Response } from "express";
+import * as productService from "../services/product.service";
 
-const createProduct = async (req, res) => {
+export const createProduct = async (req: Request, res: Response) => {
   console.log({body: req.body});
   await productService.createProduct(req.body);
   res.statusCode = 201;
   res.send("Product is created Successfully");
 };
 
-const getProducts = async (req, res) => {
+export const getProducts = async (_req: Request, res: Response) => {
   const products = await productService.getProducts();
   res.statusCode = 200;
   res.send(products);
@@ -19,27 +20,20 @@ const getProducts = async (req, res) => {
 // Query Paramaters
 // http://localhost:3000/produc/:productId
 
-const getProductsPaginated = async (req, res) => {
+export const getProductsPaginated = async (req: Request, res: Response) => {
   const query = req.query;
 
-  //Validator
+  //TODO: Validator
 
   try {
-    //TODO: pageSiza & pageNumber
     const products = await productService.getProductsPaginated(
-      req.query.pageNumber ?? 0,
-      req.query.pageSize ?? 10,
-      req.query.name ?? ""
+      req.query.pageNumber ? Number(req.query.pageNumber) : 0,
+      req.query.pageSize ? Number(req.query.pageSize) : 10,
+      String(req.query.name) ?? ""
     );
     res.statusCode = 200;
     res.send(products);
   } catch (err) {
     throw err;
   }
-};
-
-module.exports = {
-  createProduct,
-  getProducts,
-  getProductsPaginated,
 };

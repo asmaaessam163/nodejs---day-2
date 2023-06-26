@@ -1,6 +1,7 @@
-const productDal = require("../dal/product.dal");
+import { Product } from "../types/product";
+import * as productDal from '../dal/product.dal';
 
-const createProduct = async (productData) => {
+export const createProduct = async (productData: Omit<Product, 'productId'>) => {
   try {
     await productDal.createProduct(productData);
   } catch (err) {
@@ -8,7 +9,7 @@ const createProduct = async (productData) => {
   }
 };
 
-const getProducts = async () => {
+export const getProducts = async (): Promise<Product[]> => {
   try {
     const products = await productDal.getProducts();
     return products;
@@ -17,7 +18,7 @@ const getProducts = async () => {
   }
 };
 
-const getProductsPaginated = async (pageNumber, pageSize, name) => {
+export const getProductsPaginated = async (pageNumber: number, pageSize: number, name: string) => {
   try {
     const products = await productDal.getProductsPaginated(
       pageNumber,
@@ -30,8 +31,3 @@ const getProductsPaginated = async (pageNumber, pageSize, name) => {
   }
 };
 
-module.exports = {
-  createProduct,
-  getProducts,
-  getProductsPaginated,
-};

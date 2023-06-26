@@ -1,6 +1,7 @@
-const userService = require("../services/user.service");
+import * as  userService from "../services/user.service";
+import { type Request, type Response } from "express";
 
-const registerUser = async (req, res) => {
+export const registerUser = async (req: Request, res: Response) => {
   try {
     const token = await userService.registerUser(req.body);
     res.statusCode = 201;
@@ -11,18 +12,13 @@ const registerUser = async (req, res) => {
   }
 };
 
-const login = async (req, res) => {
+export const login = async (req: Request, res: Response) => {
   try {
     const token = await userService.login(req.body);
     res.statusCode = 200;
     res.send({token});
-  } catch (err) {
+  } catch (err: any) {
     res.statusCode = 401;
     res.send(err.message);
   }
-};
-
-module.exports = {
-  registerUser,
-  login,
 };
